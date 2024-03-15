@@ -1,4 +1,4 @@
-package com.testuol.clients.backend.controllers;
+package com.testuol.customers.backend.controllers;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
