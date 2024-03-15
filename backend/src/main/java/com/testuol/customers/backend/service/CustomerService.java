@@ -63,18 +63,17 @@ public class CustomerService {
    * @throws IllegalArgumentException if the customer id is null
    * @throws NoSuchElementException if the customer is not found
    */
-  public Customer updateCustomer(CustomerUpdateDto customer)
+  public Customer updateCustomer(Integer customerId, CustomerUpdateDto customer)
       throws IllegalArgumentException, NoSuchElementException {
-    Integer customerId = customer.id();
     if (customerId == null) {
       throw new IllegalArgumentException("Customer id is required");
     }
     Customer updatedCustomer = customerRepository.findById(customerId).orElseThrow();
-    updatedCustomer.setName(customer.name());
-    updatedCustomer.setEmail(customer.email());
-    updatedCustomer.setPhone(customer.phone());
-    updatedCustomer.setCpf(customer.cpf());
-    updatedCustomer.setStatus(customer.status());
+    updatedCustomer.setName(customer.getName());
+    updatedCustomer.setEmail(customer.getEmail());
+    updatedCustomer.setPhone(customer.getPhone());
+    updatedCustomer.setCpf(customer.getCpf());
+    updatedCustomer.setStatus(customer.getStatus());
     return customerRepository.save(updatedCustomer);
   }
 }

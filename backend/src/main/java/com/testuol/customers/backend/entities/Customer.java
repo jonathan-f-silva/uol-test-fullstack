@@ -24,11 +24,11 @@ public class Customer {
    * @param newCustomerData The data for the new customer.
    */
   public Customer(CustomerCreateDto newCustomerData) {
-    this.name = newCustomerData.name();
-    this.email = newCustomerData.email();
-    this.cpf = newCustomerData.cpf();
-    this.phone = newCustomerData.phone();
-    this.status = newCustomerData.status();
+    this.name = newCustomerData.getName();
+    this.email = newCustomerData.getEmail();
+    this.cpf = newCustomerData.getCpf();
+    this.phone = newCustomerData.getPhone();
+    this.status = newCustomerData.getStatus();
   }
 
   @Id
