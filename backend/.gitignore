@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### Database files ###
-customers.db
+customers.sqlite
