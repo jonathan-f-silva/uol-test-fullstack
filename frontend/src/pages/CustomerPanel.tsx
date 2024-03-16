@@ -12,7 +12,7 @@ export function CustomerPanel() {
         Listagem de usuários
       </Heading>
       <Text>Escolha um cliente para visualizar os detalhes</Text>
-      <Link to="/create">
+      <Link to="/new">
         <Button>Novo cliente</Button>
       </Link>
       <CustomerList />

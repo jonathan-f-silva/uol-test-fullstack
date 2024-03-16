@@ -1,6 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import { AppLayout } from "./components";
-import { CustomerPanel } from "./pages";
+import { CustomerCreate, CustomerEdit, CustomerPanel } from "./pages";
 
 export const routes: RouteObject[] = [
   {
@@ -10,6 +10,14 @@ export const routes: RouteObject[] = [
       {
         index: true,
         element: <CustomerPanel />,
+      },
+      {
+        path: "/new",
+        element: <CustomerCreate />,
+      },
+      {
+        path: "/edit/:customerId",
+        element: <CustomerEdit />,
       },
     ],
   },
