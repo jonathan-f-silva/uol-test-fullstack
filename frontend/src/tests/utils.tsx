@@ -34,6 +34,13 @@ function renderApp({
   );
 }
 
+/**
+ * Renders the app at a specific path
+ */
+function renderAppAt(path: string) {
+  return renderApp({ initialEntries: [path] });
+}
+
 export * from "@testing-library/react";
 export { default as userEvent } from "@testing-library/user-event";
-export { renderApp };
+export { renderApp, renderAppAt };

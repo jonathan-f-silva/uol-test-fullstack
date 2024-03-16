@@ -1,6 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import { AppLayout } from "./components";
-import { CustomerList } from "./pages";
+import { CustomerPanel } from "./pages";
 
 export const routes: RouteObject[] = [
   {
@@ -9,7 +9,7 @@ export const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <CustomerList />,
+        element: <CustomerPanel />,
       },
     ],
   },

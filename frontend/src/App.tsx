@@ -1,11 +1,14 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { routes } from "./routes";
+import { CustomerProvider } from "./contexts/CustomerContext";
 
 export function App() {
   return (
-    <ChakraProvider>
-      <RouterProvider router={createBrowserRouter(routes)} />
-    </ChakraProvider>
+    <CustomerProvider>
+      <ChakraProvider>
+        <RouterProvider router={createBrowserRouter(routes)} />
+      </ChakraProvider>
+    </CustomerProvider>
   );
 }
