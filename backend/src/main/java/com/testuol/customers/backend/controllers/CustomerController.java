@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller for customer operations.
  */
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/customers")
 public class CustomerController {
   @Autowired
   CustomerService customerService;
