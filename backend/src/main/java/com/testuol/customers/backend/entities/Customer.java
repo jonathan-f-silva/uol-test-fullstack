@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 /**
@@ -47,6 +48,8 @@ public class Customer {
   private String email;
 
   @NotBlank(message = "CPF é obrigatório")
+  @Pattern(regexp = "^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$",
+      message = "CPF inválido. Formato esperado: 000.000.000-00")
   @Column(unique = true, nullable = false)
   private String cpf;
 
