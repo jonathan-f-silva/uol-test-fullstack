@@ -17,9 +17,11 @@ export function CustomerPanel() {
   const { customers, setCustomers } = useContext(CustomerContext);
 
   useEffect(() => {
+    const loadingToastId = "loading-toast";
     if (loaderResult) {
-      if (loaderResult.error) {
+      if (loaderResult.error && !toast.isActive(loadingToastId)) {
         toast({
+          id: loadingToastId,
           title: "Erro ao carregar clientes",
           description: loaderResult.error,
           status: "error",

@@ -28,12 +28,17 @@ const isValidForm = (
   isValidPhone(phone) &&
   isNotEmpty(status);
 
-export function CustomerForm({ mode }: { mode: "create" | "edit" }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [phone, setPhone] = useState("");
-  const [status, setStatus] = useState("");
+type CustomerFormProps = {
+  mode: "create" | "edit";
+  customerData?: Customer;
+};
+
+export function CustomerForm({ mode, customerData }: CustomerFormProps) {
+  const [name, setName] = useState(customerData?.name || "");
+  const [email, setEmail] = useState(customerData?.email || "");
+  const [cpf, setCpf] = useState(customerData?.cpf || "");
+  const [phone, setPhone] = useState(customerData?.phone || "");
+  const [status, setStatus] = useState(customerData?.status || "");
 
   return (
     <VStack

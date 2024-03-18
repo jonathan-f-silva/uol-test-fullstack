@@ -4,6 +4,8 @@ import {
   CustomerCreate,
   CustomerCreateAction,
   CustomerEdit,
+  CustomerEditAction,
+  CustomerEditLoader,
   CustomerPanel,
   CustomerPanelLoader,
   ErrorPage,
@@ -28,6 +30,8 @@ export const routes: RouteObject[] = [
       {
         path: "/edit/:customerId",
         element: <CustomerEdit />,
+        action: CustomerEditAction,
+        loader: CustomerEditLoader,
       },
     ],
   },
