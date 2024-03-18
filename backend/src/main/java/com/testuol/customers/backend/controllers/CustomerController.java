@@ -5,6 +5,7 @@ import com.testuol.customers.backend.dtos.CustomerResponseDto;
 import com.testuol.customers.backend.dtos.CustomerUpdateDto;
 import com.testuol.customers.backend.entities.Customer;
 import com.testuol.customers.backend.service.CustomerService;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,8 @@ public class CustomerController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public CustomerResponseDto registerCustomer(@RequestBody CustomerCreateDto newCustomerData) {
+  public CustomerResponseDto registerCustomer(
+      @Valid @RequestBody CustomerCreateDto newCustomerData) {
     return new CustomerResponseDto(customerService.register(newCustomerData));
   }
 

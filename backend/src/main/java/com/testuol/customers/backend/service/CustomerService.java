@@ -27,6 +27,11 @@ public class CustomerService {
    */
   public Customer register(CustomerCreateDto customerData) {
     Customer newCustomer = new Customer(customerData);
+    if (!isUnique("email", newCustomer.getEmail())) {
+      throw new IllegalArgumentException("Email já cadastrado");
+    } else if (!isUnique("cpf", newCustomer.getCpf())) {
+      throw new IllegalArgumentException("CPF já cadastrado");
+    }
     return customerRepository.save(newCustomer);
   }
 
@@ -58,22 +63,45 @@ public class CustomerService {
   /**
    * Update a customer.
    *
-   * @param customer the customer to update
+   * @param customerUpdate the customer to update
    * @return the updated customer
    * @throws IllegalArgumentException if the customer id is null
    * @throws NoSuchElementException if the customer is not found
    */
-  public Customer updateCustomer(Integer customerId, CustomerUpdateDto customer)
+  public Customer updateCustomer(Integer customerId, CustomerUpdateDto customerUpdate)
       throws IllegalArgumentException, NoSuchElementException {
     if (customerId == null) {
-      throw new IllegalArgumentException("Customer id is required");
+      throw new IllegalArgumentException("ID do Cliente é obrigatório");
     }
-    Customer updatedCustomer = customerRepository.findById(customerId).orElseThrow();
-    updatedCustomer.setName(customer.getName());
-    updatedCustomer.setEmail(customer.getEmail());
-    updatedCustomer.setPhone(customer.getPhone());
-    updatedCustomer.setCpf(customer.getCpf());
-    updatedCustomer.setStatus(customer.getStatus());
-    return customerRepository.save(updatedCustomer);
+    Customer customer = customerRepository.findById(customerId).orElseThrow();
+    if (!customer.getEmail().equals(customerUpdate.getEmail())
+        && !isUnique("email", customerUpdate.getEmail())) {
+      throw new IllegalArgumentException("Email já cadastrado");
+    } else if (!customer.getCpf().equals(customerUpdate.getCpf())
+        && !isUnique("cpf", customerUpdate.getCpf())) {
+      throw new IllegalArgumentException("CPF já cadastrado");
+    }
+    customer.setName(customerUpdate.getName());
+    customer.setEmail(customerUpdate.getEmail());
+    customer.setPhone(customerUpdate.getPhone());
+    customer.setCpf(customerUpdate.getCpf());
+    customer.setStatus(customerUpdate.getStatus());
+    return customerRepository.save(customer);
+  }
+
+  /**
+   * Check if a field value is unique (not already in use).
+   *
+   * @param fieldName the field name
+   * @param fieldValue the field value
+   * @return true if the field value is unique, false otherwise
+   */
+  public boolean isUnique(String fieldName, String fieldValue) {
+    if (fieldName.equals("email")) {
+      return customerRepository.findByEmail(fieldValue).isEmpty();
+    } else if (fieldName.equals("cpf")) {
+      return customerRepository.findByCpf(fieldValue).isEmpty();
+    }
+    return false;
   }
 }

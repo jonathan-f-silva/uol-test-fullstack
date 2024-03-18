@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -35,18 +37,24 @@ public class Customer {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @NotBlank(message = "Nome é obrigatório")
   @Column(nullable = false)
   private String name;
 
+  @NotBlank(message = "Email é obrigatório")
+  @Email(message = "Email inválido")
   @Column(unique = true, nullable = false)
   private String email;
 
+  @NotBlank(message = "CPF é obrigatório")
   @Column(unique = true, nullable = false)
   private String cpf;
 
+  @NotBlank(message = "Telefone é obrigatório")
   @Column(nullable = false)
   private String phone;
 
+  @NotBlank(message = "Status é obrigatório")
   @Column(nullable = false)
   private String status;
 }
