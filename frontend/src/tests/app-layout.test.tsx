@@ -5,8 +5,13 @@ beforeEach(() => {
   renderApp();
 });
 
-test("renders header", () => {
-  const header = screen.getByRole("heading", {
+test("renders logo", async () => {
+  const logo = await screen.findByAltText(/logo do uol/i);
+  expect(logo).toBeInTheDocument();
+});
+
+test("renders header", async () => {
+  const header = await screen.findByRole("heading", {
     name: /painel de clientes/i,
   });
   expect(header).toBeInTheDocument();

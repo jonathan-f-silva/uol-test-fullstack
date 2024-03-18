@@ -8,6 +8,7 @@ import {
   createMemoryRouter,
 } from "react-router-dom";
 import { routes as appRoutes } from "../routes";
+import { CustomerProvider } from "../contexts/CustomerContext";
 
 afterEach(() => {
   cleanup();
@@ -23,13 +24,15 @@ function renderApp({
   routes?: RouteObject[];
 } = {}) {
   return render(
-    <ChakraProvider>
-      <RouterProvider
-        router={createMemoryRouter(routes, {
-          initialEntries,
-        })}
-      />
-    </ChakraProvider>,
+    <CustomerProvider>
+      <ChakraProvider>
+        <RouterProvider
+          router={createMemoryRouter(routes, {
+            initialEntries,
+          })}
+        />
+      </ChakraProvider>
+    </CustomerProvider>,
     renderOptions
   );
 }

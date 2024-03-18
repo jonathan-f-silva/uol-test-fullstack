@@ -5,13 +5,13 @@ beforeEach(() => {
   renderAppAt("/new");
 });
 
-test("renders header", () => {
-  const header = screen.getByRole("heading", { name: /criar cliente/i });
+test("renders header", async () => {
+  const header = await screen.getByRole("heading", { name: /novo usuário/i });
   expect(header).toBeInTheDocument();
 });
 
-test("renders form", () => {});
+test.todo("renders form", () => {});
 
-test("renders form fields", () => {});
+test.todo("renders form fields", () => {});
 
-test("renders submit button", () => {});
+test.todo("renders submit button", () => {});
