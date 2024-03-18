@@ -1,10 +1,11 @@
-import { useContext } from "react";
 import { CustomerCard } from ".";
-import { CustomerContext } from "../contexts/CustomerContext";
 import { List, Stack } from "@chakra-ui/react";
 
-export function CustomerList() {
-  const { customers } = useContext(CustomerContext);
+type CustomerListProps = {
+  customers: Customer[];
+};
+
+export function CustomerList({ customers }: CustomerListProps) {
   return (
     <Stack spacing={4} as={List}>
       {customers.map((customer) => (

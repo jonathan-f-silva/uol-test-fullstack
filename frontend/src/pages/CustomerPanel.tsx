@@ -38,7 +38,7 @@ export function CustomerPanel() {
   return (
     <Stack spacing={10}>
       <CustomerPanelHeader />
-      <CustomerList />
+      <CustomerList customers={customers} />
       <Text>Exibindo {customers.length} clientes</Text>
     </Stack>
   );
