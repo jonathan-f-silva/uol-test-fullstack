@@ -1,5 +1,5 @@
 import { test } from "vitest";
-import { renderApp, screen } from "./utils";
+import { renderApp, screen } from "../utils";
 
 beforeEach(() => {
   renderApp();

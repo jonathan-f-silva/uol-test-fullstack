@@ -1,6 +1,6 @@
 import { test } from "vitest";
-import { renderAppAt, screen } from "./utils";
-import { mockCustomers } from "./mocks";
+import { renderAppAt, screen } from "../utils";
+import { mockCustomers } from "../mocks";
 
 beforeEach(() => {
   renderAppAt("/");

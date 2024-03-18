@@ -1,5 +1,5 @@
 import { test } from "vitest";
-import { renderAppAt, screen } from "./utils";
+import { renderAppAt, screen } from "../utils";
 
 beforeEach(() => {
   renderAppAt("/edit/1");
