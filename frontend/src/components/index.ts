@@ -3,3 +3,4 @@ export * from "./CustomerCard";
 export * from "./CustomerForm";
 export * from "./CustomerList";
 export * from "./CustomerPanelHeader";
+export * from "./CustomerStatusField";
