@@ -1,10 +1,18 @@
-import { Button, Card, CardBody, Stack, Text, HStack } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Stack,
+  Text,
+  HStack,
+  ListItem,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import CustomerStatusField from "./CustomerStatusField";
 
 export function CustomerCard({ customer }: { customer: Customer }) {
   return (
-    <Card>
+    <Card as={ListItem}>
       <CardBody>
         <HStack justifyContent="space-between">
           <Stack width="25%">

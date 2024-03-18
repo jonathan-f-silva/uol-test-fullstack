@@ -1,5 +1,6 @@
 import { HttpResponse, RequestHandler, http } from "msw";
 import { setupServer } from "msw/node";
+import { mockCustomers } from "./mocks";
 
 export const API_ENDPOINT =
   import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
@@ -13,9 +14,9 @@ export const HTTP_STATUS_CODE = {
 };
 
 export const DB = {
-  customers: [] as Customer[],
-  addCustomer: (todo: Customer) => {
-    DB.customers.push(todo);
+  customers: mockCustomers as Customer[],
+  addCustomer: (customer: Customer) => {
+    DB.customers.push(customer);
   },
   delCustomer: (customerId: CustomerId) => {
     DB.customers = DB.customers.filter(({ id }) => id !== customerId);
