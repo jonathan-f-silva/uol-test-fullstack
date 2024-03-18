@@ -46,6 +46,7 @@ export function CustomerForm({ mode }: { mode: "create" | "edit" }) {
     >
       <FormControl isRequired isInvalid={!isNotEmpty(name)}>
         <Input
+          name="name"
           placeholder="Nome"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -57,6 +58,7 @@ export function CustomerForm({ mode }: { mode: "create" | "edit" }) {
       <FormControl isRequired isInvalid={!isValidEmail(email)}>
         <Input
           type="email"
+          name="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -67,6 +69,7 @@ export function CustomerForm({ mode }: { mode: "create" | "edit" }) {
       </FormControl>
       <FormControl isRequired isInvalid={!isValidCPF(cpf)}>
         <Input
+          name="cpf"
           placeholder="CPF"
           value={cpf}
           onChange={(e) => setCpf(e.target.value)}
@@ -79,6 +82,7 @@ export function CustomerForm({ mode }: { mode: "create" | "edit" }) {
       </FormControl>
       <FormControl isRequired isInvalid={!isValidPhone(phone)}>
         <Input
+          name="phone"
           placeholder="Telefone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
@@ -91,6 +95,7 @@ export function CustomerForm({ mode }: { mode: "create" | "edit" }) {
       </FormControl>
       <FormControl isRequired isInvalid={!isNotEmpty(status)}>
         <Input
+          name="status"
           placeholder="Status"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
@@ -102,7 +107,6 @@ export function CustomerForm({ mode }: { mode: "create" | "edit" }) {
       <Button
         type="submit"
         isDisabled={!isValidForm(name, email, cpf, phone, status)}
-        onClick={() => console.log("OK")}
       >
         {mode === "create" ? "Criar" : "Salvar"}
       </Button>
