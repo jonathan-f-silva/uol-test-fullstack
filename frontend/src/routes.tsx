@@ -6,12 +6,14 @@ import {
   CustomerEdit,
   CustomerPanel,
   CustomerPanelLoader,
+  ErrorPage,
 } from "./pages";
 
 export const routes: RouteObject[] = [
   {
     path: "/",
     element: <AppLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
