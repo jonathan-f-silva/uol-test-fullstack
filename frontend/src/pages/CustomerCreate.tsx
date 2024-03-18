@@ -27,11 +27,13 @@ export function CustomerCreate() {
   }, [actionResult, toast]);
 
   return (
-    <Stack>
-      <Heading as="h2" size="lg">
-        Novo usuário
-      </Heading>
-      <Text>Informe os campos a seguir para criar novo usuário:</Text>
+    <Stack spacing={10}>
+      <Stack>
+        <Heading as="h2" size="lg">
+          Novo usuário
+        </Heading>
+        <Text>Informe os campos a seguir para criar novo usuário:</Text>
+      </Stack>
       <CustomerForm mode="create" />
     </Stack>
   );

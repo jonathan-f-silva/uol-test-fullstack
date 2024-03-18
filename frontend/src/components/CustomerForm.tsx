@@ -3,6 +3,7 @@ import {
   Button,
   FormControl,
   FormErrorMessage,
+  HStack,
   Input,
   VStack,
 } from "@chakra-ui/react";
@@ -45,7 +46,7 @@ export function CustomerForm({ mode, customerData }: CustomerFormProps) {
       as={Form}
       method="post"
       spacing={4}
-      maxWidth="60ch"
+      maxWidth="40ch"
       width="90%"
       alignItems="stretch"
     >
@@ -109,15 +110,20 @@ export function CustomerForm({ mode, customerData }: CustomerFormProps) {
           <FormErrorMessage>Status é obrigatório.</FormErrorMessage>
         )}
       </FormControl>
-      <Button
-        type="submit"
-        isDisabled={!isValidForm(name, email, cpf, phone, status)}
-      >
-        {mode === "create" ? "Criar" : "Salvar"}
-      </Button>
-      <Link to="/">
-        <Button>Voltar</Button>
-      </Link>
+      <HStack justifyContent="space-between">
+        <Button
+          type="submit"
+          isDisabled={!isValidForm(name, email, cpf, phone, status)}
+          minWidth={150}
+        >
+          {mode === "create" ? "Criar" : "Salvar"}
+        </Button>
+        <Link to="/">
+          <Button variant="outline" minWidth={150}>
+            Voltar
+          </Button>
+        </Link>
+      </HStack>
     </VStack>
   );
 }

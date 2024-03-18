@@ -60,7 +60,7 @@ export function CustomerEdit() {
   const customer = loaderResult?.data;
   if (customer) {
     return (
-      <Stack>
+      <Stack spacing={10}>
         <Heading as="h2" size="lg">
           Editando Cliente ID #{customer.id}
         </Heading>
