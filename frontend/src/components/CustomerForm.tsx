@@ -8,6 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Form, Link } from "react-router-dom";
+import { CustomerStatusSelect } from ".";
 
 const isNotEmpty = (value: string) => value.trim().length > 0;
 const isValidEmail = (email: string) =>
@@ -100,12 +101,7 @@ export function CustomerForm({ mode, customerData }: CustomerFormProps) {
         )}
       </FormControl>
       <FormControl isRequired isInvalid={!isNotEmpty(status)}>
-        <Input
-          name="status"
-          placeholder="Status"
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-        />
+        <CustomerStatusSelect value={status} onChange={setStatus} />
         {!isNotEmpty(status) && (
           <FormErrorMessage>Status é obrigatório.</FormErrorMessage>
         )}
