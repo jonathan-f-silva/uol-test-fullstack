@@ -1,11 +1,37 @@
-import { Button, Heading, Stack, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Button, Heading, Stack, Text, useToast } from "@chakra-ui/react";
+import { Link, useLoaderData } from "react-router-dom";
 import { CustomerList } from "../components/CustomerList";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CustomerContext } from "../contexts/CustomerContext";
+import { getCustomers } from "../utils/customers";
+
+export async function CustomerPanelLoader() {
+  return getCustomers();
+}
 
 export function CustomerPanel() {
-  const { customers } = useContext(CustomerContext);
+  const toast = useToast();
+  const loaderResult = useLoaderData() as
+    | BackendResponse<Customer[]>
+    | undefined;
+  const { customers, setCustomers } = useContext(CustomerContext);
+
+  useEffect(() => {
+    if (loaderResult) {
+      if (loaderResult.error) {
+        toast({
+          title: "Erro ao carregar clientes",
+          description: loaderResult.error,
+          status: "error",
+          duration: 10000,
+          isClosable: true,
+        });
+      } else {
+        setCustomers(loaderResult.data || []);
+      }
+    }
+  }, [loaderResult, setCustomers, toast]);
+
   return (
     <Stack>
       <Heading as="h2" size="lg">

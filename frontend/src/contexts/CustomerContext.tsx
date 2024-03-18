@@ -1,5 +1,4 @@
 import { PropsWithChildren, createContext, useState } from "react";
-import { mockCustomers } from "../tests/mocks";
 
 export const CustomerContext = createContext<{
   customers: Customer[];
@@ -7,7 +6,7 @@ export const CustomerContext = createContext<{
 }>({ customers: [], setCustomers: () => {} });
 
 export const CustomerProvider = ({ children }: PropsWithChildren) => {
-  const [customers, setCustomers] = useState<Customer[]>(mockCustomers);
+  const [customers, setCustomers] = useState<Customer[]>([]);
   return (
     <CustomerContext.Provider value={{ customers, setCustomers }}>
       {children}
