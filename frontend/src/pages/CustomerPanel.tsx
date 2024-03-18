@@ -1,9 +1,10 @@
-import { Button, Heading, Stack, Text, useToast } from "@chakra-ui/react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Stack, Text, useToast } from "@chakra-ui/react";
+import { useLoaderData } from "react-router-dom";
 import { CustomerList } from "../components/CustomerList";
 import { useContext, useEffect } from "react";
 import { CustomerContext } from "../contexts/CustomerContext";
 import { getCustomers } from "../utils/customers";
+import { CustomerPanelHeader } from "../components";
 
 export async function CustomerPanelLoader() {
   return getCustomers();
@@ -36,13 +37,7 @@ export function CustomerPanel() {
 
   return (
     <Stack>
-      <Heading as="h2" size="lg">
-        Listagem de usuários
-      </Heading>
-      <Text>Escolha um cliente para visualizar os detalhes</Text>
-      <Link to="/new">
-        <Button>Novo cliente</Button>
-      </Link>
+      <CustomerPanelHeader />
       <CustomerList />
       <Text>Exibindo {customers.length} clientes</Text>
     </Stack>
