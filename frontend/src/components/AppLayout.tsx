@@ -22,7 +22,7 @@ export function AppLayout() {
         <Image src="./uol-logo.png" alt="Logo do UOL" height="32px" />
       </VStack>
       <Container maxWidth="80%" py={8}>
-        <Stack spacing={4}>
+        <Stack spacing={10}>
           <Heading as="h1">
             <Icon as={MdOutlinePeopleAlt} marginRight={4} />
             Painel de Clientes

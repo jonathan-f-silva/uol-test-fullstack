@@ -36,7 +36,7 @@ export function CustomerPanel() {
   }, [loaderResult, setCustomers, toast]);
 
   return (
-    <Stack>
+    <Stack spacing={10}>
       <CustomerPanelHeader />
       <CustomerList />
       <Text>Exibindo {customers.length} clientes</Text>
