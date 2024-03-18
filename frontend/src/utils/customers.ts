@@ -1,5 +1,9 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
 
+function renderValidationErrors(errors: Record<string, string>) {
+  return Object.values(errors).join(", ");
+}
+
 async function fetchBackend<T>(
   url: string,
   options: RequestInit
@@ -9,8 +13,10 @@ async function fetchBackend<T>(
     const data = await response.json();
     if (response.ok) {
       return { data };
+    } else if (data.errors) {
+      return { error: renderValidationErrors(data.errors) };
     }
-    return { error: data.message || "Erro desconhecido" };
+    return { error: data.errorMessage || "Erro desconhecido" };
   } catch (error) {
     return { error: "Erro de rede." };
   }
