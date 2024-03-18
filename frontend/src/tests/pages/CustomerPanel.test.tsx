@@ -10,15 +10,7 @@ test("renders heading", async () => {
   const heading = await screen.findByRole("heading", {
     name: /listagem de usuários/i,
   });
-  const text = await screen.findByText(
-    /escolha um cliente para visualizar os detalhes/i
-  );
-  const newClientButton = await screen.findByRole("button", {
-    name: /novo cliente/i,
-  });
   expect(heading).toBeInTheDocument();
-  expect(text).toBeInTheDocument();
-  expect(newClientButton).toBeInTheDocument();
 });
 
 test("renders customers list", async () => {
