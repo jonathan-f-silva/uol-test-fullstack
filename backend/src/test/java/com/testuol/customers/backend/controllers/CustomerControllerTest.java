@@ -47,6 +47,12 @@ public class CustomerControllerTest {
   }
 
   @Test
+  void getCustomer_not_found() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.get("/customers/10"))
+        .andExpect(MockMvcResultMatchers.status().isNotFound());
+  }
+
+  @Test
   void getCustomer_returns_a_customer() throws Exception {
     Customer customer = customers.get(0);
     mockMvc.perform(MockMvcRequestBuilders.get("/customers/1"))
@@ -56,6 +62,49 @@ public class CustomerControllerTest {
         .andExpect(MockMvcResultMatchers.jsonPath("$.cpf").value(customer.getCpf()))
         .andExpect(MockMvcResultMatchers.jsonPath("$.phone").value(customer.getPhone()))
         .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(customer.getStatus()));
+  }
+
+  @Test
+  void registerCustomer_with_missing_data_returns_bad_request() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.post("/customers").contentType("application/json")
+        .content("{\"name\":\"New User\",\"email\":\""
+            + "\",\"cpf\":\"123.456.789-99\",\"phone\":\"(99) 2222-3333\",\"status\":\"ACTIVE\"}"))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(
+            MockMvcResultMatchers.jsonPath("$.errorMessage").value("Erro ao validar os dados"))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errors.email").value("Email é obrigatório"));
+  }
+
+  @Test
+  void registerCustomer_with_invalid_data_returns_bad_request() throws Exception {
+    mockMvc
+        .perform(MockMvcRequestBuilders.post("/customers").contentType("application/json")
+            .content("{\"name\":\"New User\",\"email\":\"user@mail.com\", \"cpf\":\"invalid cpf"
+                + "\",\"phone\":\"(99) 2222-3333\",\"status\":\"ACTIVE\"}"))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(
+            MockMvcResultMatchers.jsonPath("$.errorMessage").value("Erro ao validar os dados"))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errors.cpf")
+            .value("CPF inválido. Formato esperado: 000.000.000-00"));
+  }
+
+  @Test
+  void registerCustomer_with_already_existing_email_returns_bad_request() throws Exception {
+    mockMvc
+        .perform(MockMvcRequestBuilders.post("/customers").contentType("application/json")
+            .content("{\"name\":\"New User\",\"email\":\"user1@mail.com\",\"cpf\":\"123.456.789-99"
+                + "\",\"phone\":\"(99) 2222-3333\",\"status\":\"ACTIVE\"}"))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("Email já cadastrado"));
+  }
+
+  @Test
+  void registerCustomer_with_already_existing_cpf_returns_bad_request() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.post("/customers").contentType("application/json")
+        .content("{\"name\":\"New User\",\"email\":\"newuser@mail.com\",\"cpf\":\"123.456.789-01"
+            + "\",\"phone\":\"(99) 2222-3333\",\"status\":\"ACTIVE\"}"))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("CPF já cadastrado"));
   }
 
   @Test
@@ -78,6 +127,48 @@ public class CustomerControllerTest {
         .andExpect(MockMvcResultMatchers.jsonPath("$.cpf").value("123.456.789-99"))
         .andExpect(MockMvcResultMatchers.jsonPath("$.phone").value("(99) 2222-3333"))
         .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("ACTIVE"));
+  }
+
+  @Test
+  void updateCustomer_with_missing_data_returns_bad_request() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.put("/customers/1").contentType("application/json")
+        .content("{\"name\":\"Updated User\",\"email\":\""
+            + "\",\"cpf\":\"123.456.789-88\",\"phone\":\"(88) 2222-3333\",\"status\":\"ACTIVE\"}"))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(
+            MockMvcResultMatchers.jsonPath("$.errorMessage").value("Erro ao validar os dados"))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errors.email").value("Email é obrigatório"));
+  }
+
+  @Test
+  void updateCustomer_with_invalid_data_returns_bad_request() throws Exception {
+    mockMvc
+        .perform(MockMvcRequestBuilders.put("/customers/1").contentType("application/json").content(
+            "{\"name\":\"Updated User\",\"email\":\"updateduser@mail.com\", \"cpf\":\"invalid cpf"
+                + "\",\"phone\":\"(88) 2222-3333\",\"status\":\"ACTIVE\"}"))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(
+            MockMvcResultMatchers.jsonPath("$.errorMessage").value("Erro ao validar os dados"))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errors.cpf")
+            .value("CPF inválido. Formato esperado: 000.000.000-00"));
+  }
+
+  @Test
+  void updateCustomer_with_already_existing_email_returns_bad_request() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.put("/customers/1").contentType("application/json")
+        .content("{\"name\":\"Updated User\",\"email\":\"user2@mail.com\",\"cpf\":\"123.456.789-88"
+            + "\",\"phone\":\"(88) 2222-3333\",\"status\":\"ACTIVE\"}"))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("Email já cadastrado"));
+  }
+
+  @Test
+  void updateCustomer_with_already_existing_cpf_returns_bad_request() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.put("/customers/1").contentType("application/json")
+        .content("{\"name\":\"Updated User\",\"email\":\"updateduser@mail.com"
+            + "\",\"cpf\":\"123.456.789-02\",\"phone\":\"(88) 2222-3333\",\"status\":\"ACTIVE\"}"))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("CPF já cadastrado"));
   }
 
   @Test
