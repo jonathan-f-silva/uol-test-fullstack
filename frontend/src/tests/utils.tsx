@@ -44,6 +44,20 @@ function renderAppAt(path: string) {
   return renderApp({ initialEntries: [path] });
 }
 
+/**
+ * Renders a component in a mock test page for unit testing
+ * @param component - The component to be rendered
+ */
+function renderComponent(component: JSX.Element) {
+  const routes: RouteObject[] = [
+    {
+      path: "/",
+      element: component,
+    },
+  ];
+  return renderApp({ routes });
+}
+
 export * from "@testing-library/react";
 export { default as userEvent } from "@testing-library/user-event";
-export { renderApp, renderAppAt };
+export { renderApp, renderAppAt, renderComponent };
