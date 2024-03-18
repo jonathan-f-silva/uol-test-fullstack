@@ -1,24 +1,31 @@
 /* eslint-disable react-refresh/only-export-components */
-import { Heading, Stack, Text } from "@chakra-ui/react";
-import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
+import { Heading, Stack, Text, useToast } from "@chakra-ui/react";
 import { CustomerForm } from "../components";
+import { createCustomer } from "../utils/customers";
+import { ActionFunctionArgs, useActionData } from "react-router-dom";
+import { useEffect } from "react";
 
-export async function loader({ params }: LoaderFunctionArgs) {
-  console.log({ params });
-  // const customer = await getCustomer(params.customerId);
-  return { params };
-}
-
-export async function action({ request }: { request: Request }) {
+export async function CustomerCreateAction({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  console.log({ formData });
-  // const config = JSON.parse(formData.get("config") as string);
-  // return saveConfig(config);
+  const customerData = Object.fromEntries(formData) as CustomerData;
+  return createCustomer(customerData);
 }
 
 export function CustomerCreate() {
-  const data = useLoaderData();
-  console.log({ data });
+  const toast = useToast();
+  const actionResult = useActionData() as BackendResponse<Customer> | undefined;
+  useEffect(() => {
+    if (actionResult) {
+      toast({
+        title: actionResult.error ? "Erro ao criar usuário" : "Usuário criado",
+        description: actionResult.error || "Usuário criado com sucesso",
+        status: actionResult.error ? "error" : "success",
+        duration: 10000,
+        isClosable: true,
+      });
+    }
+  }, [actionResult, toast]);
+
   return (
     <Stack>
       <Heading as="h2" size="lg">

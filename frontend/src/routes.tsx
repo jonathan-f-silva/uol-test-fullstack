@@ -2,6 +2,7 @@ import { RouteObject } from "react-router-dom";
 import { AppLayout } from "./components";
 import {
   CustomerCreate,
+  CustomerCreateAction,
   CustomerEdit,
   CustomerPanel,
   CustomerPanelLoader,
@@ -20,6 +21,7 @@ export const routes: RouteObject[] = [
       {
         path: "/new",
         element: <CustomerCreate />,
+        action: CustomerCreateAction,
       },
       {
         path: "/edit/:customerId",
